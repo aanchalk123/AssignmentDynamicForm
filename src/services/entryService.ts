@@ -1,0 +1,16 @@
+import { Entry } from '@/src/types/entry';
+
+export const saveEntries = async (rows: Entry[]) => {
+  await fetch("/api/entries", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(rows),
+  });
+};
+
+export const getEntries = async () => {
+  const res = await fetch("/api/entries");
+  return res.json();
+};
