@@ -27,10 +27,6 @@ The goal of this project is to practice form handling, database integration, and
 
 ## Project Structure
 
-## Project Structure
-
-## Project Structure
-
 src/
 ├── app/
 │   └── api/
