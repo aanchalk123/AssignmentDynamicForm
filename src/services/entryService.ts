@@ -14,4 +14,4 @@ export const saveEntries = async (rows: EntryForm[]) => {
 export const getEntries = async () => {
   const res = await fetch("/api/entries");
   return res.json();
-}
+};

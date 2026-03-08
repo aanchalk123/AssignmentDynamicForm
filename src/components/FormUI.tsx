@@ -31,7 +31,7 @@ export default function FormUI({
   refreshEntries,
 }: Props) {
   const [editId, setEditId] = useState<number | null>(null);
-const [errors, setErrors] = useState<any[]>([]);
+  const [errors, setErrors] = useState<any[]>([]);
   // DELETE ENTRY
   const handleDelete = async (id: number) => {
     await fetch(`/api/entries/${id}`, {
@@ -56,42 +56,57 @@ const [errors, setErrors] = useState<any[]>([]);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
- const handleSave = async () => {
+  const handleSave = async () => {
 
-  const validationErrors = rows.map((row) => validateRow(row));
-  const hasError = validationErrors.some(
-    (err) => Object.keys(err).length > 0
-  );
+    const validationErrors = rows.map((row) => validateRow(row));
+    const hasError = validationErrors.some(
+      (err) => Object.keys(err).length > 0
+    );
 
-  if (hasError) {
-    setErrors(validationErrors);
-    return;
-  }
+    if (hasError) {
+      setErrors(validationErrors);
+      return;
+    }
 
-  setErrors([]);
+    setErrors([]);
 
-  if (editId !== null) {
-    await fetch(`/api/entries/${editId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(rows[0]),
-    });
+    if (editId !== null) {
+      await fetch(`/api/entries/${editId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(rows[0]),
+      });
 
-    setEditId(null);
+      setEditId(null);
+
+      setRows([{ name: "", email: "", phone: "" }]);
+
+      refreshEntries();
+      return;
+    }
+
+    handleSubmit();
 
     setRows([{ name: "", email: "", phone: "" }]);
+  };
+  const handleReset = () => {
+    setRows([
+      {
+        name: "",
+        email: "",
+        phone: "",
+      },
+    ]);
 
-    refreshEntries();
-    return;
-  }
+    setErrors([]);
+    setEditId(null);
+  };
 
-  handleSubmit();
-
-  setRows([{ name: "", email: "", phone: "" }]);
-};
-
+  const hasData = rows.some(
+    (row) => row.name || row.email || row.phone
+  );
   return (
     <div className="max-w-5xl mx-auto mt-10">
 
@@ -107,7 +122,7 @@ const [errors, setErrors] = useState<any[]>([]);
           {editId ? "Edit Entry" : "Add New Entry"}
         </h2>
 
-      <DynamicForm rows={rows} errors={errors} onChange={onChange} />
+        <DynamicForm rows={rows} errors={errors} onChange={onChange} />
 
         <div className="flex gap-4 mt-6">
 
@@ -118,12 +133,25 @@ const [errors, setErrors] = useState<any[]>([]);
             + Add Row
           </button> */}
 
-          <button
-            onClick={handleSave}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg"
-          >
-            {editId ? "Update Entry" : "Save Entries"}
-          </button>
+       <div className="flex gap-4 mt-6">
+
+  {hasData && (
+    <button
+      onClick={handleReset}
+      className="bg-gray-500 hover:bg-gray-600 text-white px-5 py-2 rounded-lg"
+    >
+      Reset Form
+    </button>
+  )}
+
+  <button
+    onClick={handleSave}
+    className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg"
+  >
+    {editId ? "Update Entry" : "Save Entries"}
+  </button>
+
+</div>
 
         </div>
       </div>

@@ -10,8 +10,10 @@ export async function GET() {
 export async function POST(req: Request) {
   const data = await req.json();
 
-  const newEntries = data.map((item: any) => ({
-    id: Date.now(),
+  const rows = Array.isArray(data) ? data : [data];
+
+  const newEntries = rows.map((item: any) => ({
+    id: Date.now() + Math.random(),
     name: item.name,
     email: item.email,
     phone: item.phone,
