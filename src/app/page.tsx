@@ -49,15 +49,14 @@ fetchEntries();
 }, []);
 
 return (
-
-<FormUI
-rows={rows}
-entries={entries}
-onChange={handleChange}
-addRow={addRow}
-handleSubmit={handleSubmit}
-/>
-
+  <FormUI
+    rows={rows}
+    setRows={setRows}
+    entries={entries}
+    onChange={handleChange}
+    addRow={addRow}
+    handleSubmit={handleSubmit}
+    refreshEntries={fetchEntries}
+  />
 );
-
 }

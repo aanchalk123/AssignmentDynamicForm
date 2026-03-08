@@ -4,6 +4,8 @@ import { useState } from "react";
 import DynamicForm from "@/src/components/DynamicForm";
 import EntriesTable from "@/src/components/EntriesTable";
 import { Entry, EntryForm } from "@/src/types/entry";
+import { validateRow } from "@/src/utils/validation";
+
 
 interface Props {
   rows: EntryForm[];
@@ -29,7 +31,7 @@ export default function FormUI({
   refreshEntries,
 }: Props) {
   const [editId, setEditId] = useState<number | null>(null);
-
+const [errors, setErrors] = useState<any[]>([]);
   // DELETE ENTRY
   const handleDelete = async (id: number) => {
     await fetch(`/api/entries/${id}`, {
@@ -54,41 +56,41 @@ export default function FormUI({
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // SAVE OR UPDATE
-  const handleSave = async () => {
-    if (editId !== null) {
-      await fetch(`/api/entries/${editId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(rows[0]),
-      });
+ const handleSave = async () => {
 
-      setEditId(null);
+  const validationErrors = rows.map((row) => validateRow(row));
+  const hasError = validationErrors.some(
+    (err) => Object.keys(err).length > 0
+  );
 
-      setRows([
-        {
-          name: "",
-          email: "",
-          phone: "",
-        },
-      ]);
+  if (hasError) {
+    setErrors(validationErrors);
+    return;
+  }
 
-      refreshEntries();
-      return;
-    }
+  setErrors([]);
 
-    handleSubmit();
-
-    setRows([
-      {
-        name: "",
-        email: "",
-        phone: "",
+  if (editId !== null) {
+    await fetch(`/api/entries/${editId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ]);
-  };
+      body: JSON.stringify(rows[0]),
+    });
+
+    setEditId(null);
+
+    setRows([{ name: "", email: "", phone: "" }]);
+
+    refreshEntries();
+    return;
+  }
+
+  handleSubmit();
+
+  setRows([{ name: "", email: "", phone: "" }]);
+};
 
   return (
     <div className="max-w-5xl mx-auto mt-10">
@@ -105,16 +107,16 @@ export default function FormUI({
           {editId ? "Edit Entry" : "Add New Entry"}
         </h2>
 
-        <DynamicForm rows={rows} onChange={onChange} />
+      <DynamicForm rows={rows} errors={errors} onChange={onChange} />
 
         <div className="flex gap-4 mt-6">
 
-          <button
+          {/* <button
             onClick={addRow}
             className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg"
           >
             + Add Row
-          </button>
+          </button> */}
 
           <button
             onClick={handleSave}

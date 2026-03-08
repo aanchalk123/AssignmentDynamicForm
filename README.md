@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dynamic Form Application
 
-## Getting Started
+This project is built using **Next.js with TypeScript**.
+In this application, a user can fill a form and submit their details. The submitted data is stored in a **PostgreSQL database** using **Prisma ORM**, and all the entries are displayed in a table on the page.
 
-First, run the development server:
+The goal of this project is to practice form handling, database integration, and working with Prisma in a Next.js application.
 
-```bash
+---
+
+## Technologies Used
+
+* Next.js
+* TypeScript
+* Prisma ORM
+* PostgreSQL
+
+---
+
+## Features
+
+* User can fill and submit form data
+* Data is stored in PostgreSQL database
+* Submitted entries are displayed in a table
+* Prisma ORM is used for database interaction
+
+---
+
+## Project Structure
+
+src
+├── components
+│ ├── DynamicForm.tsx
+│ └── EntriesTable.tsx
+
+├── lib
+│ └── prisma.ts
+
+├── types
+│ └── entry.ts
+
+app
+└── page.tsx
+
+prisma
+└── schema.prisma
+
+---
+
+## How to Run the Project
+
+1. Install dependencies
+
+npm install
+
+This command installs all the required packages and libraries listed in the `package.json` file.
+
+---
+
+2. Generate Prisma Client
+
+npx prisma generate
+
+This command generates the Prisma client based on the schema defined in `schema.prisma`.
+It allows the application to interact with the database using Prisma.
+
+---
+
+3. Run Database Migration
+
+npx prisma migrate dev
+
+This command creates the required database tables according to the Prisma schema and applies the migration to the database.
+
+---
+
+4. Start the Development Server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This command starts the Next.js development server and runs the project locally.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+After running this command, open the browser and go to:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[http://localhost:3000](http://localhost:3000)
 
-## Learn More
+to see the application running.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database Schema
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The database contains an **Entry** table with the following fields:
 
-## Deploy on Vercel
+* id
+* name
+* email
+* mobile
+* createdAt
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Example schema:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+model Entry {
+id        Int      @id @default(autoincrement())
+name      String
+email     String
+mobile    String
+createdAt DateTime @default(now())
+}
+
+---
+
+## Future Improvements
+
+* Add edit and delete functionality
+* Improve form validation
+* Add pagination for entries table
+* Improve UI styling
+
+---
+
+## Author
+
+Aanchal Kumari
+Frontend Developer (React.js)
