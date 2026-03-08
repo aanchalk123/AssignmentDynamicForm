@@ -27,22 +27,61 @@ The goal of this project is to practice form handling, database integration, and
 
 ## Project Structure
 
-src
-├── components
-│ ├── DynamicForm.tsx
-│ └── EntriesTable.tsx
+## 📁 Project Structure
 
-├── lib
-│ └── prisma.ts
-
-├── types
-│ └── entry.ts
-
-app
-└── page.tsx
-
-prisma
-└── schema.prisma
+project-root
+│
+├── prisma/                         # Prisma ORM configuration
+│   ├── migrations/                 # Database migration history
+│   │   ├── 20260308051405_init/
+│   │   │   └── migration.sql
+│   │   ├── 20260308054604_init/
+│   │   │   └── migration.sql
+│   │   └── migration_lock.toml
+│   └── schema.prisma               # Prisma database schema
+│
+├── public/                         # Static files (images, icons, etc.)
+│
+├── src/                            # Application source code
+│   │
+│   ├── app/                        # Next.js App Router
+│   │   ├── api/                    # Backend API routes
+│   │   │   └── entries/
+│   │   │       └── [id]/
+│   │   │           └── route.ts
+│   │   │
+│   │   ├── favicon.ico             # Website icon
+│   │   ├── globals.css             # Global styles
+│   │   ├── layout.tsx              # Root layout component
+│   │   └── page.tsx                # Main page
+│   │
+│   ├── components/                 # Reusable React components
+│   │   ├── DynamicForm.tsx
+│   │   ├── EntriesTable.tsx
+│   │   └── FormUI.tsx
+│   │
+│   ├── lib/                        # Shared libraries/utilities
+│   │   └── db.ts                   # Prisma database connection
+│   │
+│   ├── services/                   # Business logic layer
+│   │   └── entryService.ts
+│   │
+│   ├── types/                      # TypeScript interfaces/types
+│   │   └── entry.ts
+│   │
+│   └── utils/                      # Helper functions
+│       └── validation.ts
+│
+├── .env                            # Environment variables
+├── .gitignore                      # Git ignored files
+├── eslint.config.mjs               # ESLint configuration
+├── next-env.d.ts                   # Next.js TypeScript definitions
+├── next.config.ts                  # Next.js configuration
+├── package.json                    # Project dependencies & scripts
+├── package-lock.json               # Dependency lock file
+├── postcss.config.mjs              # PostCSS configuration
+├── tsconfig.json                   # TypeScript configuration
+└── README.md                       # Project documentation
 
 ---
 
@@ -108,7 +147,14 @@ createdAt DateTime @default(now())
 }
 
 ---
+## Screenshots
+<img width="1153" height="578" alt="edit_function" src="https://github.com/user-attachments/assets/60533262-b066-4a79-a51d-bd9b5f5eede2" />
 
+<img width="1117" height="405" alt="empty_validation" src="https://github.com/user-attachments/assets/e1abc956-201b-463c-97f1-6dcb562e15eb" />
+
+<img width="1210" height="419" alt="validation" src="https://github.com/user-attachments/assets/6d7abd61-2562-4f60-8a2e-ecb7045aae8b" />
+
+---
 ## Future Improvements
 
 * Add edit and delete functionality
