@@ -5,3 +5,9 @@ export interface Entry {
   phone: string
   createdAt: Date
 }
+
+export interface EntryForm {
+  name: string
+  email: string
+  phone: string
+}

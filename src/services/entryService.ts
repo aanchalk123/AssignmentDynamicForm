@@ -1,6 +1,6 @@
-import { Entry } from '@/src/types/entry';
+import { EntryForm } from "@/src/types/entry";
 
-export const saveEntries = async (rows: Entry[]) => {
+export const saveEntries = async (rows: EntryForm[]) => {
   await fetch("/api/entries", {
     method: "POST",
     headers: {
