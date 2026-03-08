@@ -27,62 +27,44 @@ The goal of this project is to practice form handling, database integration, and
 
 ## Project Structure
 
-## 📁 Project Structure
+## Project Structure
 
-project-root
-│
-├── prisma/                         # Prisma ORM configuration
-│   ├── migrations/                 # Database migration history
-│   │   ├── 20260308051405_init/
-│   │   │   └── migration.sql
-│   │   ├── 20260308054604_init/
-│   │   │   └── migration.sql
-│   │   └── migration_lock.toml
-│   └── schema.prisma               # Prisma database schema
-│
-├── public/                         # Static files (images, icons, etc.)
-│
-├── src/                            # Application source code
-│   │
-│   ├── app/                        # Next.js App Router
-│   │   ├── api/                    # Backend API routes
-│   │   │   └── entries/
-│   │   │       └── [id]/
-│   │   │           └── route.ts
-│   │   │
-│   │   ├── favicon.ico             # Website icon
-│   │   ├── globals.css             # Global styles
-│   │   ├── layout.tsx              # Root layout component
-│   │   └── page.tsx                # Main page
-│   │
-│   ├── components/                 # Reusable React components
-│   │   ├── DynamicForm.tsx
-│   │   ├── EntriesTable.tsx
-│   │   └── FormUI.tsx
-│   │
-│   ├── lib/                        # Shared libraries/utilities
-│   │   └── db.ts                   # Prisma database connection
-│   │
-│   ├── services/                   # Business logic layer
-│   │   └── entryService.ts
-│   │
-│   ├── types/                      # TypeScript interfaces/types
-│   │   └── entry.ts
-│   │
-│   └── utils/                      # Helper functions
-│       └── validation.ts
-│
-├── .env                            # Environment variables
-├── .gitignore                      # Git ignored files
-├── eslint.config.mjs               # ESLint configuration
-├── next-env.d.ts                   # Next.js TypeScript definitions
-├── next.config.ts                  # Next.js configuration
-├── package.json                    # Project dependencies & scripts
-├── package-lock.json               # Dependency lock file
-├── postcss.config.mjs              # PostCSS configuration
-├── tsconfig.json                   # TypeScript configuration
-└── README.md                       # Project documentation
+## Project Structure
 
+src/
+├── app/
+│   └── api/
+│       └── entries/
+│           └── [id]/
+│
+├── components/
+├── lib/
+├── services/
+├── types/
+└── utils/
+
+Files inside src/app
+├── globals.css
+├── layout.tsx
+├── page.tsx
+└── favicon.ico
+
+Files inside components
+├── DynamicForm.tsx
+├── EntriesTable.tsx
+└── FormUI.tsx
+
+Files inside lib
+└── db.ts
+
+Files inside services
+└── entryService.ts
+
+Files inside types
+└── entry.ts
+
+Files inside utils
+└── validation.ts
 ---
 
 ## How to Run the Project
